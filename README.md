@@ -1,6 +1,4 @@
 # FreeCAD_Macro
-Macro per FreeCAD
-
 Alcune mie macro per FreeCAD
 
 BSpline3Dda2Wire.py Classe: per creare una BSpline3D da due wire, una per la pianta e una per la proiezione 

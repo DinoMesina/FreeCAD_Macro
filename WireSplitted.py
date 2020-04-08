@@ -21,6 +21,9 @@ from __future__ import unicode_literals
 *   USA                                                                   *
 ***************************************************************************
 """
+# Crea una wire spezzettando la geometria passata utilizzando come "modello"
+# la sequenza di numeri passati come parametro
+
 __title__   = "WireSplitted"
 __author__  = "Dino"
 __version__ = "0.1.0"

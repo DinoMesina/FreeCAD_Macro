@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+"""
+***************************************************************************
+*   Copyright (c) 2018-2019 <Dino del Favero dino@delfavero.it>           *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+*   as published by the Free Software Foundation; either version 3 of     *
+*   the License, or (at your option) any later version.                   *
+*   for detail see the LICENCE text file.                                 *
+*                                                                         *
+*   This software is distributed in the hope that it will be useful,      *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU Library General Public License for more details.                  *
+*                                                                         *
+*   You should have received a copy of the GNU Library General Public     *
+*   License along with this macro; if not, write to the Free Software     *
+*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+*   USA                                                                   *
+***************************************************************************
+"""
+# Crea per ogni oggetto selezionato una Bspline discretizzando in maniera
+# dinamica la geometria 
+# 03/01/2019 Funziona anche con le sezioni di due superfici in FC0.18 (0.17no)
+
+__title__   = "CreaBsplineDaOggettiSelezionati"
+__author__  = "Dino"
+__version__ = "0.1.0"
+__date__    = "03/01/2019"
+
+import FreeCAD, FreeCADGui, BSplineParametric
+
+# lavoro sul documento attivo
+doc = FreeCAD.activeDocument() 
+
+# Analizzo gli oggetti 
+objects = FreeCADGui.Selection.getSelection(doc.Name)
+
+if (len(objects) == 0):
+	# Non ci sono abbastanza informazioni 
+	FreeCAD.Console.PrintMessage("Selezionare almeno un percorso ed un vettore")
+else:
+	for o in objects:
+		nome = o.Label
+		nome = nome + "_BSpline"
+		obj = doc.addObject("Part::FeaturePython", nome)
+		oReversed = BSplineParametric.BSplineParametric(obj, o)
+		obj.ViewObject.Proxy = 0 # this is mandatory unless we code the ViewProvider too 
+
+	doc.recompute()

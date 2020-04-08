@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+"""
+***************************************************************************
+*   Copyright (c) 2018-2019 <Dino del Favero dino@delfavero.it>                *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+*   as published by the Free Software Foundation; either version 3 of     *
+*   the License, or (at your option) any later version.                   *
+*   for detail see the LICENCE text file.                                 *
+*                                                                         *
+*   This software is distributed in the hope that it will be useful,      *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU Library General Public License for more details.                  *
+*                                                                         *
+*   You should have received a copy of the GNU Library General Public     *
+*   License along with this macro; if not, write to the Free Software     *
+*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+*   USA                                                                   *
+***************************************************************************
+"""
+__title__   = "CreaSuperWireParametric"
+__author__  = "Dino"
+__version__ = "0.3.2"
+__date__    = "21/04/2019"
+
+# Macro per popolare la classe di una SuperWireParametric
+# Selezionare tutte le geometrie che si vogliono unire 
+
+import FreeCAD, FreeCADGui, SuperWireParametric 
+
+# lavoro sul documento attivo
+doc = FreeCAD.activeDocument() 
+
+# Analizzo gli oggetti 
+objects = FreeCADGui.Selection.getSelection(doc.Name)
+
+if (len(objects) == 0):
+	# Non ci sono abbastanza informazioni 
+	FreeCAD.Console.PrintMessage("Selezionare almeno un percorso ed un vettore")
+else:
+	# Creo la superficie e sposto tutti gli oggetti dentro un gruppo 
+	obj = doc.addObject("Part::FeaturePython","SuperWireParametric")
+	swp = SuperWireParametric.SuperWireParametric(obj, objects)
+	obj.ViewObject.Proxy = 0 # this is mandatory unless we code the ViewProvider too 
+	# Visualizzo la BoundingBox
+	#obj.ViewObject.BoundingBox = True
+	# Sposto gli oggetti in un gruppo 
+	gruppo = doc.addObject("App::DocumentObjectGroup","GSWP")
+	gruppo.addObject(obj)
+	for o in objects:
+		gruppo.addObject(o)
+		# Rendo invisibili gli oggetti 
+		FreeCADGui.getDocument(doc.Name).getObject(o.Name).Visibility=False
+	doc.recompute()

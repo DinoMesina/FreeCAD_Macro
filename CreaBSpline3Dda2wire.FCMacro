@@ -1,0 +1,56 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+"""
+***************************************************************************
+*   Copyright (c) 2018-2019 <Dino del Favero dino@delfavero.it>                *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+*   as published by the Free Software Foundation; either version 3 of     *
+*   the License, or (at your option) any later version.                   *
+*   for detail see the LICENCE text file.                                 *
+*                                                                         *
+*   This software is distributed in the hope that it will be useful,      *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU Library General Public License for more details.                  *
+*                                                                         *
+*   You should have received a copy of the GNU Library General Public     *
+*   License along with this macro; if not, write to the Free Software     *
+*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+*   USA                                                                   *
+***************************************************************************
+"""
+__title__   = "CreaBSpline3Dda2Wire"
+__author__  = "Dino"
+__version__ = "0.2.0"
+__date__    = "13/04/2019"
+
+# Macro per popolare la classe di una BSpline3Dda2Wire
+
+import FreeCAD, FreeCADGui, BSpline3Dda2Wire 
+
+# lavoro sul documento attivo
+doc = FreeCAD.activeDocument() 
+
+# Analizzo gli oggetti 
+objects = FreeCADGui.Selection.getSelection(doc.Name)
+
+if (len(objects) <= 1):
+	# Non ci sono abbastanza informazioni 
+	FreeCAD.Console.PrintMessage("Selezionare le wire, prima la base poi l'altezza")
+else:
+	# Creo la BSpline e sposto tutti gli oggetti dentro un gruppo 
+	obj = doc.addObject("Part::FeaturePython","BSpline3Dda2Wire")
+	bs = BSpline3Dda2Wire.BSpline3Dda2Wire(obj, objects[0], objects[1])
+	obj.ViewObject.Proxy = 0 # this is mandatory unless we code the ViewProvider too 
+	# Visualizzo la BoundingBox
+	#obj.ViewObject.BoundingBox = True
+	# Sposto gli oggetti in un gruppo 
+	gruppo = doc.addObject("App::DocumentObjectGroup","BS3DG")
+	gruppo.addObject(obj)
+	for o in objects:
+		gruppo.addObject(o)
+		# Rendo invisibili gli oggetti 
+		FreeCADGui.getDocument(doc.Name).getObject(o.Name).Visibility=False
+	doc.recompute()

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 """
 ***************************************************************************
-*   Copyright (c) 2018-2019 <Dino del Favero dino@delfavero.it>                *
+*   Copyright (c) 2018-2019 <Dino del Favero dino@delfavero.it>           *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU Lesser General Public License (LGPL)    *
@@ -21,6 +21,8 @@ from __future__ import unicode_literals
 *   USA                                                                   *
 ***************************************************************************
 """
+# Crea una SuperWireParametric unendo tutte le geometrie passate
+
 __title__   = "SuperWireParametric"
 __author__  = "Dino"
 __version__ = "0.3.2"

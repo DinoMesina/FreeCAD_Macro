@@ -21,8 +21,7 @@ from __future__ import unicode_literals
 *   USA                                                                   *
 ***************************************************************************
 """
-# Crea per ogni oggetto selezionato una Bspline discretizzando in maniera
-# dinamica la geometria 
+# Crea una Bspline discretizzando in maniera dinamica la geometria passata
 # 06/06/2019: v 0.0.1
 # 03/07/2019 Funziona anche con le sezioni di due superfici in FC0.18 (0.17no)
 

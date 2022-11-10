@@ -15,3 +15,4 @@ Alcune mie macro per FreeCAD
 
 **UnisciEdges.py** *Macro* per unire le geometrie passate, utile importando file DXF
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](http://paypal.me/dinodf)

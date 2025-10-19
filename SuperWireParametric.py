@@ -1,4 +1,31 @@
 #/-*- coding: utf-8 -*-
+"""
+***************************************************************************
+*   Copyright (c) 2018-2019 <Dino del Favero dino@delfavero.it>           *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+*   as published by the Free Software Foundation; either version 3 of     *
+*   the License, or (at your option) any later version.                   *
+*   for detail see the LICENCE text file.                                 *
+*                                                                         *
+*   This software is distributed in the hope that it will be useful,      *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU Library General Public License for more details.                  *
+*                                                                         *
+*   You should have received a copy of the GNU Library General Public     *
+*   License along with this macro; if not, write to the Free Software     *
+*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+*   USA                                                                   *
+***************************************************************************
+"""
+# Crea una SuperWireParametric unendo tutte le geometrie passate
+
+__title__   = "SuperWireParametric"
+__author__  = "dino@mesina.net"
+__version__ = "0.5.0"
+__date__    = "05/02/2025"
 #
 # 22/04/18: 
 # 19/12/18: Modificato eliminando l'uso di SuperWire di DraftGeomUtils che funziona solo con linee ed archi 
